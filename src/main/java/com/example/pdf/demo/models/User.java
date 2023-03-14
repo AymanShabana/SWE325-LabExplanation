@@ -1,6 +1,7 @@
 package com.example.pdf.demo.models;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -18,6 +19,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import net.bytebuddy.agent.builder.AgentBuilder.FallbackStrategy.Simple;
+
 @Entity
 public class User implements UserDetails {
 
@@ -32,18 +37,21 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String username;
 
+    @JsonIgnore
     private String password;
 
     @Enumerated(value = EnumType.STRING)
     private UserRole role;
 
     public User() {
+        this.role = UserRole.USER;
     }
 
     public User(String id, String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.role = UserRole.USER;
     }
 
 
@@ -128,7 +136,11 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new ArrayList();
+        return new ArrayList(
+            Arrays.asList(
+                new SimpleGrantedAuthority(this.role.toString())
+            )
+        );
     }
 
     @Override

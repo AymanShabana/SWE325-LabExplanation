@@ -35,6 +35,7 @@ public class WebSecurityConfig {
         .and()
         .authorizeRequests()
         .antMatchers("/", "/auth/*").permitAll()
+        .antMatchers("/users","/users/*").hasAuthority("ADMIN")
         .anyRequest().authenticated()
         .and()
         .httpBasic()
