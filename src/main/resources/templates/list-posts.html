@@ -1,0 +1,37 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	
+	<head>
+		<title>List Posts</title>
+	</head>
+	
+	<body>
+		<div>
+			<h3>List Posts</h3>
+			<hr/>
+			<a th:href="@{/thymeleaf/add-post}">Add Post</a>
+			<br/><br/>
+			<table>
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Caption</th>
+						<th>Type</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="post: ${posts}">
+						<td th:text="${post.id}" />
+						<td th:text="${post.caption}" />
+						<td th:text="${post.type}" />
+						<td>
+							<a th:href="@{/thymeleaf/update-post(postId=${post.id})}">Update</a>
+							<a th:href="@{/thymeleaf/delete-post(postId=${post.id})}">Delete</a>
+						</td>
+					</tr>
+				</tbody>
+				
+			</table>
+		</div>
+	</body>
+	
+</html>

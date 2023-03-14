@@ -1,0 +1,21 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<title>Add Post</title>
+	</head>
+	<body>
+		<div class="container">
+			<h3>Add New Post</h3>
+			<hr/>
+			<form th:action="@{/thymeleaf/save-post}" th:object="${post}" method="POST">
+				<input type="text" th:field="*{caption}" placeholder="Enter caption" />
+				<input type="text" th:field="*{type}" placeholder="Enter type" />				
+				<button type="submit">Save</button>
+				<input type="hidden" th:field="*{id}" />
+			</form>
+			<hr/>
+			<a th:href="@{/thymeleaf/posts}">Back to list</a>
+		</div>
+		
+	</body>
+</html>
