@@ -34,7 +34,7 @@ public class WebSecurityConfig {
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .authorizeRequests()
-        .antMatchers("/", "/auth/*").permitAll()
+        .antMatchers("/", "/auth/*", "/thymeleaf/*").permitAll()
         .antMatchers("/users","/users/*").hasAuthority("ADMIN")
         .anyRequest().authenticated()
         .and()

@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.pdf.demo.dtos.PostDto;
+import com.example.pdf.demo.exceptions.TaskException;
 import com.example.pdf.demo.models.Post;
 import com.example.pdf.demo.repositories.PostRepository;
 import com.example.pdf.demo.services.LoggingService;
@@ -48,7 +49,7 @@ public class PostController {
     // and an HTTP status of 200 OK.
     @GetMapping("")
     public ResponseEntity getPosts(@RequestParam(required = false, name = "search") String search,
-    @PageableDefault(size = 20) Pageable pageable){
+    @PageableDefault(size = 20) Pageable pageable) {
         loggingService.log("User fetched all posts");
         if(search == null)
             return new ResponseEntity(postRepository.findAll(pageable), HttpStatus.OK);
@@ -65,7 +66,8 @@ public class PostController {
         Post res = postRepository.findById(postId).get();
         if(res != null)
             return new ResponseEntity(res, HttpStatus.OK);
-        return new ResponseEntity("Not Found", HttpStatus.NOT_FOUND);
+
+        throw new TaskException(HttpStatus.NOT_FOUND, "No user found with this id");
     }
 
     // This method handles POST requests to the "/posts" endpoint 
@@ -114,4 +116,7 @@ public class PostController {
         return new ResponseEntity("Deleted", HttpStatus.OK);
     }
 
+    public int testReturn() throws Exception{
+        throw new Exception();
+    }
 }
