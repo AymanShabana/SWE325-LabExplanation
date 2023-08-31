@@ -7,6 +7,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+
+
 // This line marks the beginning of the Spring Boot application class. 
 // It includes the @SpringBootApplication annotation, 
 // which is used to enable Spring Boot auto-configuration and component scanning.
